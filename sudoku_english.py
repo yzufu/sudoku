@@ -49,9 +49,7 @@ class SudokuGame:
         os.system('cls' if os.name == 'nt' else 'clear')
     
     def new_game(self):
-        # Генерируем новое решение
         self.solution = self.generator.generate_solved()
-        # Убираем числа для создания головоломки
         self.board = self.generator.remove_numbers(self.solution, random.randint(35, 45))
         self.original = [row[:] for row in self.board]
         self.mistakes = 0
@@ -63,17 +61,14 @@ class SudokuGame:
         if num == 0:
             return True
             
-        # Check row
         for j in range(9):
             if self.board[row][j] == num and j != col:
                 return False
         
-        # Check column
         for i in range(9):
             if self.board[i][col] == num and i != row:
                 return False
         
-        # Check 3x3 box
         start_row, start_col = 3 * (row // 3), 3 * (col // 3)
         for i in range(start_row, start_row + 3):
             for j in range(start_col, start_col + 3):
@@ -132,13 +127,11 @@ class SudokuGame:
         return False
     
     def check_solution(self):
-        # Check if all cells are filled
         for i in range(9):
             for j in range(9):
                 if self.board[i][j] == 0:
                     return "incomplete"
         
-        # Check if solution matches correct solution
         for i in range(9):
             for j in range(9):
                 if self.board[i][j] != self.solution[i][j]:
